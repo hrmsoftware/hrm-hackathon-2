@@ -22,9 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TrashFriendWidget extends AppWidgetProvider {
 
-    private static String WEBSITE_URL = "http://172.20.10.87:8080/somewhere";
-    private static String SERVICE_URL = "http://172.20.10.87:8080/trashme/";
-    private static int status = 1;
+    private static String WEBSITE_URL = "http://172.20.10.105:8100";
+    private static String SERVICE_URL = "http://172.20.10.105:8080/trashme/";
+    private static int status = 0;
     private static Status.Weather weather = Status.Weather.SUNNY;
 
     static void updateAppWidget(Context context,
@@ -33,10 +33,10 @@ public class TrashFriendWidget extends AppWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.trash_friend_widget);
 
-        if (status == 1) {
+        if (status == 0) {
             views.setImageViewResource(R.id.status, R.drawable.imagefiles_seal_circle_green);
         }
-        else if (status == 2) {
+        else if (status == 1) {
             views.setImageViewResource(R.id.status, R.drawable.imagefiles_seal_circle_yellow);
         }
         else {
