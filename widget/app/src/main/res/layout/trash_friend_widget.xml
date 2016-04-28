@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#09C"
-    android:padding="3dp">
+    android:background="@drawable/bg"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/status"
@@ -29,7 +29,18 @@
         android:layout_toRightOf="@id/status"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/prognosisLabel"
+        android:id="@+id/prognosisLabel"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingRight="4dp"
+        android:layout_toRightOf="@id/weather" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/prognosis"
@@ -37,6 +48,15 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:paddingRight="4dp"
-        android:layout_toRightOf="@id/weather" />
+        android:layout_toRightOf="@id/prognosisLabel" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/visitors"
+        android:id="@+id/visitors"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_toRightOf="@id/prognosis" />
 </RelativeLayout>

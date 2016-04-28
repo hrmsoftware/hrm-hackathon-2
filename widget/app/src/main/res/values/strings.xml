@@ -2,5 +2,7 @@
     <string name="app_name">TrashFriendWidget</string>
     <string name="appwidget_text">Trash friendasd</string>
     <string name="add_widget">Add widget</string>
-    <string name="prognosis">Prognos: x besökare</string>
+    <string name="prognosisLabel">Prognos:</string>
+    <string name="prognosis">0</string>
+    <string name="visitors">besökare</string>
 </resources>
