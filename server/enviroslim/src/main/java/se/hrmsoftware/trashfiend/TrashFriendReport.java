@@ -8,11 +8,13 @@ public class TrashFriendReport {
 	private final int busyStatus;
 	private final int clowdy;
 	private final int rainFall;
+	private final int count;
 
-	public TrashFriendReport(int busyStatus, int clowdy, int rainFall) {
+	public TrashFriendReport(int busyStatus, int clowdy, int rainFall, int count) {
 		this.busyStatus = busyStatus;
 		this.clowdy = clowdy;
 		this.rainFall = rainFall;
+		this.count = count;
 	}
 
 	/**
@@ -56,5 +58,13 @@ public class TrashFriendReport {
 	public int getRainFall() {
 		return rainFall;
 	}
-	
+
+	/**
+	 *
+	 *
+	 * @return
+	 */
+	public int getCount() {
+		return count;
+	}
 }

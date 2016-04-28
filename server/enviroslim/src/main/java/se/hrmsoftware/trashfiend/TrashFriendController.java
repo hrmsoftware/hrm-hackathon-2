@@ -45,18 +45,19 @@ public class TrashFriendController {
 		int hours = new Date().getHours();
 		TimeSeries ts = forecast.getTimeSeries().stream()
 				.filter(timeSerie -> timeSerie.getValidTime().getHours() == hours).findFirst().get();
-		return new TrashFriendReport(getCurrentStatus(),
-				ts.getClowdy(), ts.getRainFall());
+		int[] currentStatus = getCurrentStatus();
+		return new TrashFriendReport(currentStatus[0],
+				ts.getClowdy(), ts.getRainFall(), currentStatus[1]);
 	}
 
-	protected int getCurrentStatus() {
+	protected int[] getCurrentStatus() {
 		LocalDate localDate = LocalDate.now().minusMonths(6);
 		int hour = LocalTime.now().getHour();
 		String dateString = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		int size = repo.getTrashList(
 				t -> t.getDate().equals(dateString) && Integer.parseInt(t.getTime().substring(0, 2)) == hour).size();
 		int max = repo.getCollect().values().stream().mapToInt(v -> v.size()).max().getAsInt();
-		return (int) (((float)size / (float) max) * 3);
+		return new int[] {(int) (((float)size / (float) max) * 3), size};
 	}
 
 	@CrossOrigin("*")
