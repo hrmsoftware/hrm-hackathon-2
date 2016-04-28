@@ -16,13 +16,32 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('RecycleCtrl', function($scope, $stateParams) {
-  $scope.index = 1;
-  $scope.labels = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
-  $scope.series = ['8-12', '12-16', '16-20'];
+.controller('RecycleCtrl', function($scope, $stateParams, recycleService) {
+  var type = 'day';
+  var init = function(type) {
+    recycleService.getFuture(type).then(function (future) {
+      $scope.labels = future.data.labels;
+      $scope.series = future.data.series;
+      $scope.data = future.data.data;
+    });
+  }
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
+  $scope.toggle = function() {
+    if (type === 'day') {
+      type = 'week';
+    }
+    else {
+      type = 'day';
+    }
+    init(type);
+  }
+  init(type);
+/*
+  $scope.index = 1;
+  $scope.labels = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+  $scope.series = ['8-12', '12-16', '16-20'];
   $scope.toggle = function() {
     if ($scope.index == 0) {
       $scope.index = 1;
@@ -37,7 +56,7 @@ angular.module('starter.controllers', [])
     else {
       $scope.index = 0;
       $scope.labels = ["Måndag", "Tisdag", "Onsdag"];
-      $scope.series = ['8-10', '10-12', '12-14', '14-16', '16-18', '18-20'];
+      $scope.series = ['08-10', '10-12', '12-14', '14-16', '16-18', '18-20'];
       $scope.data = [
           [65, 59, 80],
           [35, 39, 30],
@@ -49,4 +68,5 @@ angular.module('starter.controllers', [])
 
   };
   $scope.toggle();
+  */
 });
