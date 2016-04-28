@@ -2,7 +2,7 @@
   <ion-content>
     <div class="card">
       <div class="item item-divider">
-        Öppettider per vecka
+        {{ title }}
       </div>
       <div class="item item-text-wrap">
         <canvas id="line" class="chart chart-bar" chart-data="data"
@@ -11,6 +11,6 @@
         </canvas>
       </div>
     </div>
-    <button ng-click="toggle()">Toggle</button>
+    <button ng-click="toggle()">{{ toggleTitle }}</button>
   </ion-content>
 </ion-view>
