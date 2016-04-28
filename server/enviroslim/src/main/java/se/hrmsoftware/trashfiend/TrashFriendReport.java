@@ -60,9 +60,9 @@ public class TrashFriendReport {
 	}
 
 	/**
+	 * Returns the number of vehicles that has entered the facilities during the current hour.
 	 *
-	 *
-	 * @return
+	 * @return the number of vehicles.
 	 */
 	public int getCount() {
 		return count;
