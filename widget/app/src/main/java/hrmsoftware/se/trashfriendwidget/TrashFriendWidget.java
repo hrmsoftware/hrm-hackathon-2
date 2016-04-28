@@ -1,8 +1,11 @@
 package hrmsoftware.se.trashfriendwidget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
@@ -19,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TrashFriendWidget extends AppWidgetProvider {
 
+    private static String WEBSITE_URL = "http://172.20.10.87:8080/somewhere";
+    private static String SERVICE_URL = "http://172.20.10.87:8080/trashme/";
     private static int status = 1;
     private static Status.Weather weather = Status.Weather.SUNNY;
 
@@ -51,6 +56,12 @@ public class TrashFriendWidget extends AppWidgetProvider {
             views.setImageViewResource(R.id.weather, R.drawable.imagefiles_simple_weather_icons_rain);
         }
 
+        Uri uri = Uri.parse(WEBSITE_URL);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+        views.setOnClickPendingIntent(R.id.widget_layout,
+                PendingIntent.getActivity(context, appWidgetId, intent, 0));
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -78,8 +89,6 @@ public class TrashFriendWidget extends AppWidgetProvider {
      */
     class StatusFetcher implements Runnable {
 
-        private String url = "http://172.20.10.87:8080/trashme/";
-
         public StatusFetcher() {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -88,7 +97,7 @@ public class TrashFriendWidget extends AppWidgetProvider {
         @Override
         public void run() {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
+                    .baseUrl(SERVICE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
