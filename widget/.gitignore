@@ -1,0 +1,5 @@
+.gradle
+/widget/.idea/
+.idea/*.xml
+*.iml
+build
