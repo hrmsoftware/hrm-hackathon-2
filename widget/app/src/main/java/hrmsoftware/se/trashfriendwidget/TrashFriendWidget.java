@@ -22,8 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TrashFriendWidget extends AppWidgetProvider {
 
-    private static String WEBSITE_URL = "http://172.20.10.105:8100";
-    private static String SERVICE_URL = "http://172.20.10.105:8080/trashme/";
+    private static String WEBSITE_URL = "http://localhost:8100";
+    private static String SERVICE_URL = "http://localhost:8080/trashme/";
     private static int status = 0;
     private static Status.Weather weather = Status.Weather.SUNNY;
     private static int count = 0;
