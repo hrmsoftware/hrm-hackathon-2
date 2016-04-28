@@ -3,10 +3,13 @@ package se.hrmsoftware.trashfiend;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,15 +45,25 @@ public class TrashFriendController {
 		int hours = new Date().getHours();
 		TimeSeries ts = forecast.getTimeSeries().stream()
 				.filter(timeSerie -> timeSerie.getValidTime().getHours() == hours).findFirst().get();
-		return new TrashFriendReport(1,
+		return new TrashFriendReport(getCurrentStatus(),
 				ts.getClowdy(), ts.getRainFall());
+	}
+
+	protected int getCurrentStatus() {
+		LocalDate localDate = LocalDate.now().minusMonths(6);
+		int hour = LocalTime.now().getHour();
+		String dateString = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+		int size = repo.getTrashList(
+				t -> t.getDate().equals(dateString) && Integer.parseInt(t.getTime().substring(0, 2)) == hour).size();
+		int max = repo.getCollect().values().stream().mapToInt(v -> v.size()).max().getAsInt();
+		return (int) (((float)size / (float) max) * 3);
 	}
 
 	@CrossOrigin("*")
 	@RequestMapping("/future")
 	TrashEntry future(@RequestParam(name = "type", required = false, defaultValue = "week") String type) {
 		if (type.equals("day")) {
-			int value = LocalDate.now().getDayOfWeek().getValue();
+			int value = LocalDate.now().getDayOfWeek().getValue()-1;
 			List<String> labels = Arrays.asList("Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag");
 			return new TrashEntry(Collections.singletonList(labels.get(value)),
 					Arrays.asList("8-10", "10-12", "12-14", "14-16", "16-18", "18-20"),
@@ -60,7 +73,8 @@ public class TrashFriendController {
 							new String[] { "12", "14" },
 							new String[] { "14", "16" },
 							new String[] { "16", "18" },
-							new String[] { "18", "20" })));
+							new String[] { "18", "20" })).stream().map(l -> Collections.singletonList(l.get(value))).collect(
+							Collectors.toList()));
 		}
 		else {
 			return new TrashEntry(Arrays.asList("Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"),

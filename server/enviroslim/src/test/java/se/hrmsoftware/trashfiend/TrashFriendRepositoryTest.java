@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -26,8 +25,7 @@ public class TrashFriendRepositoryTest {
 		TrashFriendRepository repository = init();
 
 		List<List<Integer>> periodData = repository
-				.getPeriodData(Arrays.asList(new String[] { "10", "12" }, new String[] { "12", "14" }));
-		assertEquals(65,
-				periodData);
+				.getPeriodData(Arrays.asList(new String[] { "10", "14" }, new String[] { "14", "20" }));
+		assertEquals(65, periodData);
 	}
 }
