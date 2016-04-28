@@ -9,6 +9,7 @@ public class Status {
     private int busyStatus;
     private int clowdy;
     private int rainFall;
+    private int count;
 
     public int getBusyStatus() {
         return busyStatus;
@@ -32,6 +33,14 @@ public class Status {
 
     public void setRainFall(int rainFall) {
         this.rainFall = rainFall;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     Weather getWeather() {
