@@ -23,6 +23,12 @@ public class TrashFriendController {
 	}
 	
 	
+	/**
+	 * Returns a <code>TrashFriendReport</code> that contains current information about the
+	 * Norremark site. Such as how crowdy the place is and the current weather.
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/now")
 	TrashFriendReport now() {
 		WeatherForecast forecast =
