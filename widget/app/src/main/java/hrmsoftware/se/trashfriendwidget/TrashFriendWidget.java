@@ -19,7 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TrashFriendWidget extends AppWidgetProvider {
 
-    private static int status;
+    private static int status = 1;
+    private static Status.Weather weather = Status.Weather.SUNNY;
 
     static void updateAppWidget(Context context,
                                 AppWidgetManager appWidgetManager,
@@ -35,6 +36,19 @@ public class TrashFriendWidget extends AppWidgetProvider {
         }
         else {
             views.setImageViewResource(R.id.status, R.drawable.imagefiles_seal_circle_red);
+        }
+
+        if (weather.equals(Status.Weather.SUNNY)) {
+            views.setImageViewResource(R.id.weather, R.drawable.imagefiles_simple_weather_icons_sunny);
+        }
+        else if (weather.equals(Status.Weather.CLOUD)) {
+            views.setImageViewResource(R.id.weather, R.drawable.imagefiles_simple_weather_icons_cloudy);
+        }
+        else if (weather.equals(Status.Weather.SUNANDCLOUD)) {
+            views.setImageViewResource(R.id.weather, R.drawable.imagefiles_simple_weather_icons_partly_cloudy);
+        }
+        else {
+            views.setImageViewResource(R.id.weather, R.drawable.imagefiles_simple_weather_icons_rain);
         }
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -82,9 +96,11 @@ public class TrashFriendWidget extends AppWidgetProvider {
 
             try {
                 Response<Status> response = service.now().execute();
-                status = response.isSuccessful()
-                        ? response.body().getBusyStatus()
-                        : 2;
+
+                if (response.isSuccessful()) {
+                    status = response.body().getBusyStatus();
+                    weather = response.body().getWeather();
+                }
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
