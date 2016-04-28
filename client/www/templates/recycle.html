@@ -1,0 +1,16 @@
+<ion-view view-title="Återvinning">
+  <ion-content>
+    <div class="card">
+      <div class="item item-divider">
+        Öppettider per vecka
+      </div>
+      <div class="item item-text-wrap">
+        <canvas id="line" class="chart chart-bar" chart-data="data"
+                chart-labels="labels" chart-legend="true" chart-series="series"
+                chart-click="onClick" >
+        </canvas>
+      </div>
+    </div>
+    <button ng-click="toggle()">Toggle</button>
+  </ion-content>
+</ion-view>
